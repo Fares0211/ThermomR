@@ -1,9 +1,9 @@
-### thermomR : Implémentation d'une fonction prédictive de la température de l'air sur RStudio.
+# thermomR : Implémentation d'une fonction prédictive de la température de l'air sur RStudio.
 ## Projet de mathématiques appliquées sur la régression linéaire.
 
 --------------
 
-# Part I : Theoretical questions
+### Part I : Theoretical questions
 
 The simple linear regression allows to explain a quantitative variable Y by only one regressor X : Y =β0+β1X+ε with ε∼N(0,σ2).
 The variable X is assumed to be deterministic whereas Y and ε are random
@@ -17,9 +17,9 @@ of β0 and β1 are defined by :
 3. Give a practical example where this model can be used. What does the target variable Y represent ? How about the regressor X ?
 
 
-# Part II : Practical applications
+### Part II : Practical applications
 
-2.1. Simple Linear Regression
+##### 2.1. Simple Linear Regression
 
 2.1.1 Preliminary study
 
@@ -82,7 +82,7 @@ Ne12
 3. [graded question] Interpret the value of R2. What can you say about the quality of the model?
 3
 
-2.2 Multiple Linear regression
+##### 2.2 Multiple Linear regression
 In this section you will perform linear regression with more than one regressor and compare this model to that obtained by fitting simple linear regression.
 
 Exercise 6. Fit the regression model on two predictors : the nebulosity Ne12 and the maximum content of ozone the day before maxO3v.
