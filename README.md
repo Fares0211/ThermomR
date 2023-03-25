@@ -94,8 +94,7 @@ Vous pouvez utiliser les mêmes fonctions que celles utilisées pour la régress
 Exercice 7. Nous aimerions prédire la teneur en ozone pour demain. Aujourd'hui, la teneur maximale en ozone
 Aujourd'hui, la teneur maximale en ozone est de 80 et les prévisions météorologiques estiment que la nébulosité sera de 6 demain à midi.
 [Quelle est la valeur prédite de maxO3 ? Utilisez les modèles de régression simple et multiple précédemment ajustés. Comparez les deux résultats.
--
--
+
 Dans R, la fonction predict.lm() prédit les valeurs estimées de la variable cible pour de nouvelles valeurs des régresseurs. Elle prend comme valeur d'entrée au moins un objet de type lm() et un cadre de données avec les nouvelles valeurs. Pour créer un nouveau cadre de données, vous pouvez exécuter la commande new.data <- data.frame(Ne12=6,maxO3v=80).
 En Python, utilisez la fonction predict() après avoir créé un cadre de données avec les nouvelles valeurs à l'aide de la fonction DataFrame() de la bibliothèque pandas.
           Coefficient de détermination R2
