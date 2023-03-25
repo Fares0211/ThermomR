@@ -1,4 +1,4 @@
-# thermomR : Implémentation d'une fonction prédictive de la température de l'air sur RStudio.
+# thermomR
 ## Projet de mathématiques appliquées sur la régression linéaire (voir fichier PDF pour le rapport complet avec les output console et le fichier .R pour lire le code).
 
 --------------
