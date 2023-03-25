@@ -3,105 +3,104 @@
 
 --------------
 
-### Part I : Theoretical questions
+### Partie I : Questions théoriques
 
-The simple linear regression allows to explain a quantitative variable Y by only one regressor X : Y =β0+β1X+ε with ε∼N(0,σ2).
-The variable X is assumed to be deterministic whereas Y and ε are random
-To estimate the parameters of the model β0 and β1 and σ, we have n observations (y1, x1), . . . , (yn, xn). The variables εi are assumed to be independent and follow the same law. The least squares estimators
-of β0 and β1 are defined by :
-􏰀ni=1(xi − x ̄)(yi − y ̄) β0 = y ̄ − β1x ̄ β1 = 􏰀ni=1(xi − x ̄)2
-􏰀n 2 the estimator of σ2 is given by σˆ2 = i=1 eˆi .ˆˆˆn−2
+La régression linéaire simple permet d'expliquer une variable quantitative Y par un seul régresseur X : Y =β0+β1X+ε avec ε∼N(0,σ2).
+La variable X est supposée déterministe, tandis que Y et ε sont aléatoires
+Pour estimer les paramètres du modèle β0 et β1 et σ, nous disposons de n observations (y1, x1), . . . , (yn, xn). Les variables εi sont supposées être indépendantes et suivre la même loi. Les estimateurs des moindres carrés
+de β0 et β1 sont définis par :
+􏰀ni=1(xi - x ̄)(yi - y ̄) β0 = y ̄ - β1x ̄ β1 = 􏰀ni=1(xi - x ̄)2
+􏰀n 2 l'estimateur de σ2 est donné par σˆ2 = i=1 eˆi .ˆˆˆˆn-2
 
-1. What is the law of the random variables (βˆ0, βˆ1) ?
-2. Are the variables Yi independent ? Are they identically distributed ? Justify your answer
-3. Give a practical example where this model can be used. What does the target variable Y represent ? How about the regressor X ?
+1. Quelle est la loi des variables aléatoires (βˆ0, βˆ1) ?
+2. Les variables sont-elles Yi indépendantes ? Sont-elles identiquement distribuées ? Justifiez votre réponse
+3. Donnez un exemple pratique où ce modèle peut être utilisé. Que représente la variable cible Y ? Que représente le régresseur X ?
 
 
-### Part II : Practical applications
+### Partie II : Applications pratiques
 
-##### 2.1. Simple Linear Regression
+##### 2.1. Régression linéaire simple
 
-2.1.1 Preliminary study
+2.1.1 Etude préliminaire
 
-In this section, you will fit a linear model to predict the ozone content according to other meteo- rological variables. In moodle, you will find a text file attributed to your TD group called ozone.txt. This dataset file contains the following variables :
-— the maximum content of ozone measured during the day (maxO3), — the temperature at noon (T12),
-— the nebulosity at noon (Ne12) and
-— the maximum content of ozone the day before (maxO3v).
+Dans cette section, vous allez ajuster un modèle linéaire pour prédire la teneur en ozone en fonction d'autres variables météorologiques. Dans moodle, vous trouverez un fichier texte attribué à votre groupe de TD appelé ozone.txt. Ce fichier contient les variables suivantes :
+- la teneur maximale en ozone mesurée au cours de la journée (maxO3), - la température à midi (T12),
+- la nébulosité à midi (Ne12) et
+- la teneur maximale en ozone la veille (maxO3v).
 
-Exercise 1. Open the text file and save it in your working directory. Import the data into a data frame that you will name oz.
-— In R use the read.table command. You can use the command attach(oz) to be able to use directly the variable names.
-— In Python, use the function read_csv() function from the pandas library.
-How many observations does this dataset contain ? How many variables are there ?
+Exercice 1. Ouvrez le fichier texte et enregistrez-le dans votre répertoire de travail. Importez les données dans un cadre de données que vous nommerez oz.
+- Dans R, utilisez la commande read.table. Vous pouvez utiliser la commande attach(oz) pour pouvoir utiliser directement les noms des variables.
+- En Python, utilisez la fonction read_csv() de la bibliothèque pandas.
+Combien d'observations ce jeu de données contient-il ? Combien y a-t-il de variables ?
 
-Exercise 2. Calculate descriptive statistics for all the variables in the dataset :
-— In R you can use the function summary() to produce a descriptive statistics of each variable. In
-addition, use the plot() function to plot the scatter plot of the variables.
-— In Python, the command oz.describe() allows to calculate descriptive statistics. In addition, the function scatter_matrix() of the pandas library.
-Interpret the scatter plot.
-What are the values of the mean, the quartiles, the maximun and minimum of the maximum content of ozone during the day ?. On your own words interpret the scatter plot.
-Now, you will calculate the correlation matrix for all the features in the dataset.
-Which variable is correlated the most with the ozone content maxO3 ? Interpret the correlation coefficient.
-— In R, use the function cor() to calculate the empirical correlation matrix.
-— In Python, the command oz.corr() allows to calculate the empirical correlation matrix.
+Exercice 2. Calculez les statistiques descriptives pour toutes les variables de l'ensemble de données :
+- Dans R, vous pouvez utiliser la fonction summary() pour produire des statistiques descriptives pour chaque variable. En outre, utilisez la fonction
+En outre, utilisez la fonction plot() pour tracer le diagramme de dispersion des variables.
+- En Python, la commande oz.describe() permet de calculer des statistiques descriptives. En outre, la fonction scatter_matrix() de la bibliothèque pandas.
+Interprétez le diagramme de dispersion.
+Quelles sont les valeurs de la moyenne, des quartiles, du maximum et du minimum de la teneur maximale en ozone au cours de la journée ? Interprétez le diagramme de dispersion avec vos propres mots.
+Vous allez maintenant calculer la matrice de corrélation pour toutes les caractéristiques de l'ensemble de données.
+Quelle est la variable la plus corrélée avec la teneur en ozone maxO3 ? Interprétez le coefficient de corrélation.
+- Dans R, utilisez la fonction cor() pour calculer la matrice de corrélation empirique.
+- En Python, la commande oz.corr() permet de calculer la matrice de corrélation empirique.
      
+2.1.2 Ajustement du modèle et qualité de l'ajustement
 
-2.1.2 Fit of the model and goodness of fit
-
-Exercise 3. In this exercise you will fit a simple linear model with only one regressor, the nubelosity,
-to predict the ozone content.
-— In R Using the lm() function to fit the model : maxO3 = β0 + β1Ne12 + ε. You will denote the
-output of the lm function oz.regsimple.
-— In Python, you will use the module statsmodels, a module that supports specifying models
-using R-style formulas and pandas DataFrames :
+Exercice 3. Dans cet exercice, vous allez ajuster un modèle linéaire simple avec un seul régresseur, la nubelosité,
+pour prédire la teneur en ozone.
+- Dans R, utilisez la fonction lm() pour ajuster le modèle : maxO3 = β0 + β1Ne12 + ε. Vous noterez la sortie de la fonction lm
+sortie de la fonction lm oz.regsimple.
+- En Python, vous utiliserez le module statsmodels, un module qui permet de spécifier des modèles
+à l'aide de formules de style R et de pandas DataFrames :
 import statsmodels . api as sm
-lm = sm.OLS.from formula(’maxO3  ̃ Ne12’, oz)
+lm = sm.OLS.from formula('maxO3 ̃ Ne12', oz)
 oz regsimple = lm. fit () print oz regsimple .summary()
-What are the coefficients estimates? Interpret coefficient estimate βˆ1.
-In addition you can draw the scatter plot between maxO3 and Ne12 and add the regression line just fitted. To this end, in R you can use the plot() and the abline() functions. In Python You can use the function to Use the abline command to add to the scatter plot. Whereas in Python you can use the code matplotlib library :
+Quelles sont les estimations des coefficients ? Interprétez l'estimation du coefficient βˆ1.
+En outre, vous pouvez dessiner le diagramme de dispersion entre maxO3 et Ne12 et ajouter la ligne de régression qui vient d'être ajustée. Pour ce faire, vous pouvez utiliser les fonctions plot() et abline() de R. En Python, vous pouvez utiliser la fonction pour Utiliser la commande abline pour ajouter au nuage de points. En Python, vous pouvez utiliser le code matplotlib library :
 import matplotlib . pyplot as plt
 plt.scatter(oz.Ne12, oz.maxO3)
-plt.plot([x,x], [x,x], ’k−’, color = ’r’) #plot 2 points of the fitted line
+plt.plot([x,x], [x,x], 'k-', color = 'r') #trace 2 points de la ligne ajustée
 
-Exercise 4. Confidence intervals (IC) for the parameters
-[graded question] Give the general expression of a 1 − α confidence interval for the parameter β1. Calculate the 90% confidence interval for this coefficient. Interpret the results.
-— In R the confint() command allows to calculate confidence intervals for the model parameters. — In Python you can use the command oz_regsimple.conf_int(alpha= )
+Exercice 4. Intervalles de confiance (IC) pour les paramètres
+[Donnez l'expression générale d'un intervalle de confiance 1 - α pour le paramètre β1. Calculez l'intervalle de confiance à 90% pour ce coefficient. Interprétez les résultats.
+- Dans R, la commande confint() permet de calculer les intervalles de confiance pour les paramètres du modèle. - En Python, vous pouvez utiliser la commande oz_regsimple.conf_int(alpha= ).
 
-Exercise 5. You can obtain a summary report of the fitting by running :
-— the command summary(oz.regsimple) in R.
-— the command oz_regmult.summary() in Python and printing the output.
-You will obtain the following table :
-Estimate Std. Error t value P r(> |t|)
+Exercice 5. Vous pouvez obtenir un rapport récapitulatif de l'ajustement en exécutant :
+- la commande summary(oz.regsimple) dans R.
+- la commande oz_regmult.summary() en Python et en imprimant la sortie.
+Vous obtiendrez le tableau suivant :
+Estimation Erreur std. valeur t P r(> |t|)
                              (Intercept)
 Ne12
-βˆ σˆ statistict p-valueofthetestH :β =0 0ˆβ00
+βˆ σˆ statistict p-valuedu testH :β =0 0ˆβ00
 β0 0
-βˆ σˆ statisticT p-valueofthetestH :β =0 1ˆβ01
+βˆ σˆ statisticT p-valuedu testH :β =0 1ˆβ01
 β1 1
-1. [graded question] What can you say about the estimated variances of the estimated coefficients ?
-2. [graded question] Elaborate the zero slope hypothesis test and conclude if there is a relationship between the between the maximum content of ozone the day before maxO3v and the nebulosity Ne12. Is β1 significantly non zero ?
-3. [graded question] Interpret the value of R2. What can you say about the quality of the model?
+1. [Que pouvez-vous dire des variances estimées des coefficients estimés ?
+2. [Développez le test d'hypothèse de la pente nulle et concluez s'il existe une relation entre la teneur maximale en ozone la veille de maxO3v et la nébulosité Ne12. Est-ce que β1 est significativement non nul ?
+3. [Interprétez la valeur de R2. Que pouvez-vous dire sur la qualité du modèle ?
 3
 
-##### 2.2 Multiple Linear regression
-In this section you will perform linear regression with more than one regressor and compare this model to that obtained by fitting simple linear regression.
+##### 2.2 Régression linéaire multiple
+Dans cette section, vous effectuerez une régression linéaire avec plus d'un régresseur et comparerez ce modèle à celui obtenu par l'ajustement d'une régression linéaire simple.
 
-Exercise 6. Fit the regression model on two predictors : the nebulosity Ne12 and the maximum content of ozone the day before maxO3v.
+Exercice 6. Ajustez le modèle de régression sur deux prédicteurs : la nébulosité Ne12 et la teneur maximale en ozone la veille de maxO3v.
 maxO3 = β0 + β1Ne12 + β2maxO3v + ε
-You can use the same functions used for simple linear regression with the formula :
-’maxO3 ∼ Ne12 + maxO3v’ You will call the output of the function oz.regmult.
-[graded question] What are the coefficient estimates? Give an interpretation to these coefficients. Perform the zero slope hypothesis test.
-2.2.1 Making predictions
+Vous pouvez utiliser les mêmes fonctions que celles utilisées pour la régression linéaire simple avec la formule :
+'maxO3 ∼ Ne12 + maxO3v' Vous appellerez la sortie de la fonction oz.regmult.
+[Quelles sont les estimations des coefficients ? Donnez une interprétation à ces coefficients. Effectuez le test d'hypothèse de la pente nulle.
+2.2.1 Faire des prédictions
 
-Exercise 7. We would like to predict the ozone content for tomorrow. Today the maximal ozone
-content is 80 and the weather forecast estimates the nebulosity tomorrow at noon will be 6.
-[graded question] What is the predicted value of maxO3? Use the simple and the multiple regression models previously fitted. Compare both results.
-—
-—
-In R the predict.lm() function predicts the estimated values of the target variable for new values of the regressors. It takes as input value at least an object of type lm() and a data frame with the new values. To create a new dataframe you can run the command new.data <- data.frame(Ne12=6,maxO3v=80).
-In Python use the predict() function after creating a dataframe with the new values using the DataFrame() function of the pandas library.
-          Coefficient of determination R2
-In the lecture we defined the coefficient of determination R2 and the adjusted coefficient of de-
-termination R ̄2 to evaluate the goodness of fit of our model. Exercise 8.
-1. What do the coefficients R2 and R ̄2 measure? In your opinion, which one is more adapted to compare the models oz.regsimple to the oz.regmult ?
-2. The summary report gives you the R2 and the R ̄2 coefficients of your models. Which model would you choose to predict the ozone content for tomorrow ?
+Exercice 7. Nous aimerions prédire la teneur en ozone pour demain. Aujourd'hui, la teneur maximale en ozone
+Aujourd'hui, la teneur maximale en ozone est de 80 et les prévisions météorologiques estiment que la nébulosité sera de 6 demain à midi.
+[Quelle est la valeur prédite de maxO3 ? Utilisez les modèles de régression simple et multiple précédemment ajustés. Comparez les deux résultats.
+-
+-
+Dans R, la fonction predict.lm() prédit les valeurs estimées de la variable cible pour de nouvelles valeurs des régresseurs. Elle prend comme valeur d'entrée au moins un objet de type lm() et un cadre de données avec les nouvelles valeurs. Pour créer un nouveau cadre de données, vous pouvez exécuter la commande new.data <- data.frame(Ne12=6,maxO3v=80).
+En Python, utilisez la fonction predict() après avoir créé un cadre de données avec les nouvelles valeurs à l'aide de la fonction DataFrame() de la bibliothèque pandas.
+          Coefficient de détermination R2
+Dans le cours, nous avons défini le coefficient de détermination R2 et le coefficient ajusté de dé-
+de détermination R2 et le coefficient de dé- termination ajusté R ̄2 pour évaluer la qualité de l'ajustement de notre modèle. Exercice 8.
+1. Que mesurent les coefficients R2 et R ̄2 ? A votre avis, lequel est le plus adapté pour comparer les modèles oz.regsimple et oz.regmult ?
+2. Le rapport de synthèse vous donne les coefficients R2 et R ̄2 de vos modèles. Quel modèle choisiriez-vous pour prédire la teneur en ozone pour demain ?
 
