@@ -1,5 +1,5 @@
 # thermomR : Implémentation d'une fonction prédictive de la température de l'air sur RStudio.
-Projet de mathématiques appliquées.
+Projet de mathématiques appliquées sur la régression linéaire.
 
 --------------
 
